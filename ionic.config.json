@@ -1,0 +1,7 @@
+{
+  "name": "picturegram",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
