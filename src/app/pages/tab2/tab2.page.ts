@@ -17,6 +17,7 @@ export class Tab2Page {
 
   tempImages: string[] = [];
   cargandoGeo = false;
+  cargando = false;
 
   post = {
     mensaje: '',
@@ -50,11 +51,13 @@ export class Tab2Page {
     }
 
     this.cargandoGeo = true;
+    this.cargando = true;
 
     this.geolocation.getCurrentPosition().then((resp) => {
       // resp.coords.latitude
       // resp.coords.longitude
       this.cargandoGeo = false;
+      this.cargando = false;
       const coords = `${resp.coords.latitude},${resp.coords.longitude}`;
       console.log(coords);
       this.post.coords = coords;
@@ -64,6 +67,8 @@ export class Tab2Page {
      });
   }
   camara(){
+
+    this.cargando=true;
 
     const options: CameraOptions = {
       quality: 100,
@@ -78,6 +83,9 @@ export class Tab2Page {
   }
 
   libreria(){
+
+    this.cargando=true;
+
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.FILE_URI,
@@ -91,13 +99,15 @@ export class Tab2Page {
   }
 
   private procesarImagen(options: CameraOptions){
-    this.camera.getPicture(options).then((imageData) => {
+    this.camera.getPicture(options).then(async (imageData) => {
  
        const img = window.Ionic.WebView.convertFileSrc(imageData);
        console.log(img);
-       this.postService.subirImagen(imageData);
        this.tempImages.push(img);
- 
+       this.postService.subirImagen(imageData)
+       .then(()=>{
+        this.cargando = false;
+       });
      }, (err) => {
 
      });

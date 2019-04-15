@@ -19,6 +19,7 @@ export interface Usuario {
   _id?: string;
   nombre?: string;
   email?: string;
+  nickname?: string;
   password?: string;
   __v?: number;
 }

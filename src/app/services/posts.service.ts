@@ -52,13 +52,14 @@ export class PostsService {
     };
 
     const fileTransfer: FileTransferObject = this.fileTransfer.create();
-
-    fileTransfer.upload( img, `${URL}/posts/upload`,options )
-    .then(data =>{
-      console.log(data);
-    }).catch(err=>{
-      console.log('error en carga', err);
-    })
+    return new Promise((resolve,reject)=>{
+      fileTransfer.upload( img, `${URL}/posts/upload`,options )
+      .then(data =>{
+        resolve();
+      }).catch(err=>{
+        reject(err);
+      })
+    });
   }
 
 }

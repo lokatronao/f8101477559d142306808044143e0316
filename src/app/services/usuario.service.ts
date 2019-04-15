@@ -20,17 +20,17 @@ export class UsuarioService {
   login( email:string, password:string){
     const data = {email,password};
 
-    return new Promise(resolve =>{
+    return new Promise((resolve,reject) =>{
       this.http.post(`${URL}/user/login`,data)
       .subscribe( async resp=>{
         console.log(resp);
         if(resp['ok']){
           await this.guardarToken(resp['token']);
-          resolve(true);
+          resolve();
         }else{
           this.token = null;
           this.storage.clear();
-          resolve(false);
+          reject(resp['mensaje']);
         }
       });
     });
@@ -45,16 +45,16 @@ export class UsuarioService {
 
   registro(usuario:Usuario){
 
-    return new Promise(resolve=>{
+    return new Promise((resolve,reject)=>{
       this.http.post(`${URL}/user/create`,usuario)
       .subscribe( async resp=>{
         if(resp['ok']){
           await this.guardarToken(resp['token']);
-          resolve(true);
+          resolve();
         }else{
           this.token = null;
           this.storage.clear();
-          resolve(false);
+          reject(resp['mensaje']);
         }
       })
     });

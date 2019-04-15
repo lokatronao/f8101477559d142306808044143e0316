@@ -16,15 +16,18 @@ export class LoginPage implements OnInit {
 
   validando = false;
 
+  errorMensajeLogin = '';
+  errorMensajeRegistro = '';
+
   loginUser = {
     email: 'lokatronao@gmail.com',
     password: 'Habbon123,'
   };
 
   registerUser: Usuario = {
-    email: 'test@test.com',
-    password: '123456',
-    nombre: 'Test',
+    email: '',
+    password: '',
+    nombre: '',
     avatar: 'av-1.png'
   };
 
@@ -37,32 +40,30 @@ export class LoginPage implements OnInit {
   async login(fLogin: NgForm){
     if(fLogin.invalid){return;};
     this.validando = true;
-    const valido = await this.UsuarioService.login(this.loginUser.email, this.loginUser.password);
-    if(valido){
-      //navegar al tabs
+    await this.UsuarioService.login(this.loginUser.email, this.loginUser.password)
+    .then(()=>{
       this.validando= false;
       this.navCtrl.navigateRoot('main/tabs/tab1',{animated:true});
-    }else{
+      this.limpiarMensajesError();
+    })
+    .catch((err)=>{
       this.validando = false;
-      //mostrar alerta de usuario y contraseña no correctos
-      this.uiService.alertaInformativa('Usuario/Contraseña no son correctos');
-    }
-
+      this.errorMensajeLogin = err;
+    });
   }
 
   async registro(fRegistro: NgForm){
 
     if(fRegistro.invalid){return;}
 
-    const valido = await this.UsuarioService.registro(this.registerUser);
-
-    if(valido){
-      //navegar al tabs
+    await this.UsuarioService.registro(this.registerUser)
+    .then(()=>{
       this.navCtrl.navigateRoot('main/tabs/tab1',{animated:true});
-    }else{
-      //mostrar alerta de usuario y contraseña no correctos
-      this.uiService.alertaInformativa('Ese correo electrónico ya existe');
-    }
+      this.limpiarMensajesError();
+    })
+    .catch((err)=>{
+      this.errorMensajeRegistro = err;
+    });
   }
 
   mostrarRegistro(){
@@ -75,6 +76,11 @@ export class LoginPage implements OnInit {
     this.slides.lockSwipes(false);
     this.slides.slideTo(0);
     this.slides.lockSwipes(true);
+  }
+
+  private limpiarMensajesError(){
+    this.errorMensajeRegistro = '';
+    this.errorMensajeLogin = '';
   }
 
 }
