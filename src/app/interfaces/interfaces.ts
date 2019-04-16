@@ -23,3 +23,8 @@ export interface Usuario {
   password?: string;
   __v?: number;
 }
+
+export interface tempImage{
+  path?: string;
+  subido?: boolean;
+}

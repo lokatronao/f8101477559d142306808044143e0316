@@ -55,8 +55,9 @@ export class PostsService {
     return new Promise((resolve,reject)=>{
       fileTransfer.upload( img, `${URL}/posts/upload`,options )
       .then(data =>{
-        resolve();
+        resolve(data);
       }).catch(err=>{
+        console.log(err);
         reject(err);
       })
     });

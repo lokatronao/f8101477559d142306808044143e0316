@@ -5,6 +5,7 @@ import { TouchSequence } from 'selenium-webdriver';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { tempImage } from 'src/app/interfaces/interfaces';
 
 declare var window: any;
 
@@ -15,7 +16,7 @@ declare var window: any;
 })
 export class Tab2Page {
 
-  tempImages: string[] = [];
+  tempImages: tempImage[] = [];
   cargandoGeo = false;
   cargando = false;
 
@@ -102,10 +103,17 @@ export class Tab2Page {
     this.camera.getPicture(options).then(async (imageData) => {
  
        const img = window.Ionic.WebView.convertFileSrc(imageData);
-       console.log(img);
-       this.tempImages.push(img);
+       const tempImage: tempImage = {path: img,subido: null}
+       this.tempImages.push(tempImage);
        this.postService.subirImagen(imageData)
-       .then(()=>{
+       .then((data)=>{
+         const response:string = data['response'];
+        if(response.includes("sexuales")){
+          tempImage.subido = false;
+          console.log(data);
+        }else{
+          tempImage.subido = true;
+        }
         this.cargando = false;
        });
      }, (err) => {
