@@ -5,7 +5,9 @@ import { TouchSequence } from 'selenium-webdriver';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { tempImage } from 'src/app/interfaces/interfaces';
+import { tempImage, Likelihood } from 'src/app/interfaces/interfaces';
+import { BucketService } from 'src/app/services/bucket.service';
+import { RespuestaSubidaBucket } from '../../interfaces/interfaces';
 
 declare var window: any;
 
@@ -23,20 +25,21 @@ export class Tab2Page {
   post = {
     mensaje: '',
     coords: null,
-    posicion: false
+    posicion: false,
+    bucket: ''
   };
 
-  constructor(private postService: PostsService, private navCtrl: NavController, private geolocation:Geolocation, private camera: Camera){}
+  constructor(private postService: PostsService,private bucketService: BucketService, private navCtrl: NavController, private geolocation:Geolocation, private camera: Camera){}
 
   async crearPost(){
 
-    console.log(this.post);
     const creado = await this.postService.crearPost(this.post);
 
     this.post = {
       mensaje: '',
       coords: null,
-      posicion: false
+      posicion: false,
+      bucket: ''
     };
 
     this.tempImages = [];
@@ -67,8 +70,8 @@ export class Tab2Page {
        this.cargandoGeo = false;
      });
   }
-  camara(){
 
+  camara(){
     this.cargando=true;
 
     const options: CameraOptions = {
@@ -85,7 +88,7 @@ export class Tab2Page {
 
   libreria(){
 
-    this.cargando=true;
+    this.cargando = true;
 
     const options: CameraOptions = {
       quality: 100,
@@ -100,15 +103,18 @@ export class Tab2Page {
   }
 
   private procesarImagen(options: CameraOptions){
+    if(this.post.bucket===''){
+      this.generarBucket();
+    }
     this.camera.getPicture(options).then(async (imageData) => {
  
        const img = window.Ionic.WebView.convertFileSrc(imageData);
        const tempImage: tempImage = {path: img,subido: null}
        this.tempImages.push(tempImage);
-       this.postService.subirImagen(imageData)
+       this.bucketService.subirImagen(imageData,this.post.bucket)
        .then((data)=>{
-         const response:string = data['response'];
-        if(response.includes("sexuales")){
+        const response:RespuestaSubidaBucket = JSON.parse(data['response']);
+        if(response.img.detections.adult === Likelihood.VERY_LIKELY){
           tempImage.subido = false;
           console.log(data);
         }else{
@@ -119,5 +125,12 @@ export class Tab2Page {
      }, (err) => {
 
      });
+  }
+
+  private generarBucket(){
+    this.bucketService.crear()
+    .then((resp)=>{
+      this.post.bucket = resp['_id'];
+    })
   }
 }

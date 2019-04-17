@@ -9,13 +9,13 @@
         </ion-label>
     </ion-item>
 
-    <ion-slides pager="true" *ngIf="post.imgs.length > 1">
-        <ion-slide *ngFor="let img of post.imgs" class="image-slide" [style]=" (img | imagen: post.usuario._id) | domSanitizer ">
+    <ion-slides pager="true" *ngIf="post.bucket.imgs.length > 1">
+        <ion-slide *ngFor="let img of post.bucket.imgs" class="image-slide" [style]=" (img.img | imagen: post.bucket._id) | domSanitizer ">
         </ion-slide>
     </ion-slides>
 
-    <ion-slides *ngIf="post.imgs.length === 1" [options]="slideSoloOpts">
-        <ion-slide class="image-slide" [style]=" (post.imgs[0] | imagen: post.usuario._id) | domSanitizer ">
+    <ion-slides *ngIf="post.bucket.imgs.length === 1" [options]="slideSoloOpts">
+        <ion-slide class="image-slide" [style]=" (post.bucket.imgs[0].img | imagen: post.bucket._id) | domSanitizer ">
         </ion-slide>
     </ion-slides>
 

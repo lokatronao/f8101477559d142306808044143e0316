@@ -4,12 +4,49 @@ export interface RespuestaPosts {
   posts: Post[];
 }
 
+export interface RespuestaSubidaBucket {
+  ok: boolean;
+  img: Image;
+}
+
 export interface Post {
-  imgs?: string[];
+  bucket?: Bucket;
   _id?: string;
   mensaje?: string;
   coords?: string;
   usuario?: Usuario;
+  created?: string;
+  __v?: number;
+}
+
+export interface Bucket{
+  imgs?: Image[];
+  _id?: string;
+  created?: string;
+  __v?: number;
+}
+
+export interface Detections{
+  adult?: Likelihood;
+  spoof?: Likelihood;
+  medical?: Likelihood;
+  violence?: Likelihood;
+  racy?: Likelihood;
+}
+
+export enum Likelihood{
+  UNKOWN = 'UNKOWN',
+  VERY_UNLIKELY = 'VERY_UNLIKELY',
+  UNLIKELY = 'UNLIKELY',
+  POSSIBLE = 'POSSIBLE',
+  LIKELY = 'LIKELY',
+  VERY_LIKELY = 'VERY_LIKELY'
+}
+
+export interface Image{
+  detections?: Detections;
+  img?: string;
+  _id?: string;
   created?: string;
   __v?: number;
 }

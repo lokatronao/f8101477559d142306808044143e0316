@@ -8,8 +8,9 @@ const URL = environment.url;
 })
 export class ImagenPipe implements PipeTransform {
 
-  transform(img: string, userId: string): string {
-    return `${URL}/posts/imagen/${userId}/${img}`;
+  transform(img: string, bucketId: string): string {
+    console.log(`${URL}/bucket/image/${bucketId}/${img}`);
+    return `${URL}/bucket/image/${bucketId}/${img}`;
   }
 
 }
