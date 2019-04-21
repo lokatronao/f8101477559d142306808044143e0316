@@ -107,7 +107,7 @@ export class Tab2Page {
       this.generarBucket();
     }
     this.camera.getPicture(options).then(async (imageData) => {
- 
+
        const img = window.Ionic.WebView.convertFileSrc(imageData);
        const tempImage: tempImage = {path: img,subido: null}
        this.tempImages.push(tempImage);
@@ -123,7 +123,7 @@ export class Tab2Page {
         this.cargando = false;
        });
      }, (err) => {
-
+      this.cargando = false;
      });
   }
 
