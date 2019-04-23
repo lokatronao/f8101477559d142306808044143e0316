@@ -20,12 +20,12 @@
                             <ion-list>
 
                                 <ion-item>
-                                    <ion-label position="floating">Email</ion-label>
+                                    <ion-label position="floating">{{ 'PAGES.LOGIN.LB_EMAIL' | translate }}</ion-label>
                                     <ion-input name="email" type="email" [(ngModel)]="loginUser.email" required></ion-input>
                                 </ion-item>
 
                                 <ion-item>
-                                    <ion-label position="floating">Password</ion-label>
+                                    <ion-label position="floating">{{ 'PAGES.LOGIN.LB_PASSWORD' | translate }}</ion-label>
                                     <ion-input name="password" type="password" [(ngModel)]="loginUser.password" required></ion-input>
                                 </ion-item>
 
@@ -42,7 +42,7 @@
                     <ion-row>
                         <ion-col>
                             <ion-button type="submit" color="tertiary" [disabled]="validando" shape="round">
-                                <span [hidden]="validando">Login</span>
+                                <span [hidden]="validando">{{ 'PAGES.LOGIN.BTN_LOGIN' | translate }}</span>
                                 <ion-spinner [hidden]="!validando" name="dots"></ion-spinner>
                             </ion-button>
                         </ion-col>
@@ -70,17 +70,22 @@
                             <ion-list>
 
                                 <ion-item>
-                                    <ion-label position="floating">Email</ion-label>
+                                    <ion-label position="floating">{{ 'PAGES.LOGIN.LB_EMAIL' | translate }}</ion-label>
                                     <ion-input name="email" type="email" [(ngModel)]="registerUser.email" required></ion-input>
                                 </ion-item>
 
                                 <ion-item>
-                                    <ion-label position="floating">Nombre</ion-label>
+                                    <ion-label position="floating">{{ 'PAGES.LOGIN.LB_NAME' | translate }}</ion-label>
                                     <ion-input name="nombre" type="text" [(ngModel)]="registerUser.nombre" required></ion-input>
                                 </ion-item>
 
                                 <ion-item>
-                                    <ion-label position="floating">Password</ion-label>
+                                    <ion-label position="floating">{{ 'PAGES.LOGIN.LB_NICKNAME' | translate }}</ion-label>
+                                    <ion-input name="nickname" type="text" [(ngModel)]="registerUser.nickname" required></ion-input>
+                                </ion-item>
+
+                                <ion-item>
+                                    <ion-label position="floating">{{ 'PAGES.LOGIN.LB_PASSWORD' | translate }}</ion-label>
                                     <ion-input name="password" type="password" [(ngModel)]="registerUser.password" required></ion-input>
                                 </ion-item>
 
@@ -97,7 +102,7 @@
                     <ion-row>
                         <ion-col>
                             <ion-button type="submit" color="tertiary" shape="round">
-                                Crear usuario
+                                {{ 'PAGES.LOGIN.BTN_CREATEUSER' | translate }}
                             </ion-button>
                         </ion-col>
                     </ion-row>
@@ -123,13 +128,13 @@
 
             <ion-col>
                 <ion-button (click)="mostrarLogin()" shape="round" expand="full" size="small" fill="outline" color="tertiary">
-                    Ingresar
+                    {{ 'PAGES.LOGIN.BTN_LOGIN' | translate }}
                 </ion-button>
             </ion-col>
 
             <ion-col>
                 <ion-button (click)="mostrarRegistro()" shape="round" expand="full" size="small" fill="outline" color="tertiary">
-                    Registrarme
+                    {{ 'PAGES.LOGIN.BTN_SIGNUP' | translate }}
                 </ion-button>
             </ion-col>
 

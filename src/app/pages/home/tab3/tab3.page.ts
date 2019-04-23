@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/interfaces/interfaces';
-import { UsuarioService } from '../../services/usuario.service';
+import { UsuarioService } from '../../../services/usuario.service';
 import { NgForm } from '@angular/forms';
-import { UiServiceService } from '../../services/ui-service.service';
+import { UiServiceService } from '../../../services/ui-service.service';
 import { PostsService } from 'src/app/services/posts.service';
 
 @Component({

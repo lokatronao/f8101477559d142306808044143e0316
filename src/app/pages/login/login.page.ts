@@ -4,6 +4,7 @@ import { IonSlides, NavController } from '@ionic/angular';
 import { UsuarioService } from '../../services/usuario.service';
 import { UiServiceService } from '../../services/ui-service.service';
 import { Usuario } from 'src/app/interfaces/interfaces';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -28,10 +29,11 @@ export class LoginPage implements OnInit {
     email: '',
     password: '',
     nombre: '',
+    nickname: '',
     avatar: 'av-1.png'
   };
 
-  constructor(private uiService: UiServiceService , private UsuarioService: UsuarioService, private navCtrl: NavController) { }
+  constructor(private uiService: UiServiceService , private UsuarioService: UsuarioService, private navCtrl: NavController, private _translate: TranslateService) { }
 
   ngOnInit() {
     this.slides.lockSwipes(true);
@@ -66,6 +68,10 @@ export class LoginPage implements OnInit {
     });
   }
 
+  cambiaIdioma(idioma: string) {
+    this._translate.use(idioma);
+  }
+
   mostrarRegistro(){
     this.slides.lockSwipes(false);
     this.slides.slideTo(1);
@@ -78,7 +84,7 @@ export class LoginPage implements OnInit {
     this.slides.lockSwipes(true);
   }
 
-  private limpiarMensajesError(){
+  private limpiarMensajesError() {
     this.errorMensajeRegistro = '';
     this.errorMensajeLogin = '';
   }

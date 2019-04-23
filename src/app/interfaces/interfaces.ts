@@ -58,6 +58,10 @@ export interface Usuario {
   email?: string;
   nickname?: string;
   password?: string;
+  config?: {
+    pais?: string;
+    idioma?: string;
+  }
   __v?: number;
 }
 

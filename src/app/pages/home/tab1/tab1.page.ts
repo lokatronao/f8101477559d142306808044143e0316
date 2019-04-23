@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostsService } from '../../services/posts.service';
+import { PostsService } from '../../../services/posts.service';
 import { Post } from 'src/app/interfaces/interfaces';
 import { ThrowStmt } from '@angular/compiler';
 

@@ -1,0 +1,17 @@
+{
+    "PAGES": {
+        "LOGIN": {
+            "TITLE_PAGE": "Login",
+            "LB_EMAIL": "Email",
+            "LB_PASSWORD": "Password",
+            "LB_NAME": "Name",
+            "LB_NICKNAME": "Nickname",
+            "BTN_LOGIN": "Login",
+            "BTN_SIGNUP": "Sign Up",
+            "BTN_CREATEUSER": "Create user"
+        },
+        "HOME": {
+
+        }
+    }
+}

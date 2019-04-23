@@ -5,7 +5,7 @@ import { UsuarioGuard } from './guards/usuario.guard';
 const routes: Routes = [
   {
      path: 'main',
-      loadChildren: './pages/tabs/tabs.module#TabsPageModule',
+      loadChildren: './pages/home/tabs/tabs.module#TabsPageModule',
       canLoad: [UsuarioGuard]
   },
   { 
