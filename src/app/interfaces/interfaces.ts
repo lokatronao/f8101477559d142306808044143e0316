@@ -9,6 +9,13 @@ export interface RespuestaSubidaBucket {
   img: Image;
 }
 
+export interface Pais{
+  id?: string;
+  name?: string;
+  aplha2?: string;
+  alpha3?: string;
+}
+
 export interface Post {
   bucket?: Bucket;
   _id?: string;

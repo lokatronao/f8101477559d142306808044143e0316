@@ -6,16 +6,19 @@ import { IonicModule } from '@ionic/angular';
 import { PipesModule } from '../pipes/pipes.module';
 import { AvatarSelectorComponent } from './avatar-selector/avatar-selector.component';
 import { MapaComponent } from './mapa/mapa.component';
+import { SelectorPaisComponent } from './selector-pais/selector-pais.component';
 
 @NgModule({
   declarations: [
     PostComponent,
     PostsComponent,
     AvatarSelectorComponent,
-    MapaComponent
+    MapaComponent,
+    SelectorPaisComponent
   ],
   exports:[
     PostsComponent,
+    SelectorPaisComponent,
     AvatarSelectorComponent
   ],
   imports: [

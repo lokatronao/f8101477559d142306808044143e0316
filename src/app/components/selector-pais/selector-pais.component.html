@@ -1,0 +1,8 @@
+<ion-item>
+    <ion-label>Paises</ion-label>
+    <ion-select>
+        <ion-select-option *ngFor="let pais of paises" value="{{pais.name}}">
+            {{ pais.name }}
+        </ion-select-option>
+    </ion-select>
+</ion-item>
