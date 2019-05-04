@@ -33,7 +33,8 @@ export class Tab2Page {
     private bucketService: BucketService,
      private navCtrl: NavController,
       private geolocation: Geolocation,
-       private camera: Camera) {}
+       private camera: Camera) {
+       }
 
   async crearPost() {
 

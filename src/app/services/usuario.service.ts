@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { environment } from '../../environments/environment';
 import { Usuario } from '../interfaces/interfaces';
 import { NavController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 const URL = environment.url;
 
@@ -14,8 +15,9 @@ export class UsuarioService {
 
   token: string = null;
   private usuario: Usuario = {};
+  private idiomas: String[] = ['es', 'en'];
 
-  constructor(private http: HttpClient, private storage: Storage, private navCtrl: NavController) { }
+  constructor(private http: HttpClient, private storage: Storage, private navCtrl: NavController, private translateService: TranslateService) { }
 
   login( email: string, password: string) {
     const data = {email, password};
@@ -23,7 +25,6 @@ export class UsuarioService {
     return new Promise((resolve, reject) => {
       this.http.post(`${URL}/user/login`, data)
       .subscribe( async resp => {
-        console.log(resp);
         if (resp['ok']) {
           await this.guardarToken(resp['token']);
           resolve();
@@ -34,6 +35,33 @@ export class UsuarioService {
         }
       });
     });
+  }
+
+  cambiarIdioma(idioma){
+      this.translateService.use(idioma);
+      console.log(this.translateService.getLangs());
+  }
+
+  sacarConfigUsuario(){
+
+    const headers = new HttpHeaders({
+      'x-token': this.token
+    });
+
+    return new Promise((resolve, reject) => {
+      this.http.get(`${URL}/user/config`, {headers})
+      .subscribe( async resp => {
+        if (resp['ok']) {
+          this.usuario.config = resp['config'];
+          this.cambiarIdioma(this.usuario.config.idioma);
+          resolve();
+        } else {
+          
+          reject();
+        }
+      });
+    });
+
   }
 
   logout() {
@@ -81,7 +109,6 @@ export class UsuarioService {
 
   async cargarToken() {
     this.token = await this.storage.get('token') || null;
-    console.log(this.token);
   }
 
   async validaToken(): Promise<boolean> {

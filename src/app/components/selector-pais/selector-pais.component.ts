@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Pais } from '../../interfaces/interfaces';
 import { testUserAgent } from '@ionic/core';
@@ -10,24 +10,19 @@ import { testUserAgent } from '@ionic/core';
 })
 export class SelectorPaisComponent implements OnInit {
 
+  @Output() seleccionado = new EventEmitter();
+
   constructor(private http: HttpClient) { }
 
   paises: Pais[] = [];
 
   ngOnInit() {
-
-    //const fs = require('fs');
-
-    //const contents = fs.readFileSync('./assets/paises/data/es/countries.json');
-    //const jsonContent = JSON.parse(contents);
-    //console.log(jsonContent);
-    this.test();
+    this.init();
   }
 
-  async test(){
-    let num = true;
+  async init(){
     await this.http.get('assets/paises/data/es/countries.json')
-    .subscribe((data: Pais[]) =>{
+    .subscribe((data: Pais[]) => {
       this.paises = data;
     });
 
@@ -36,6 +31,16 @@ export class SelectorPaisComponent implements OnInit {
     this.paises.forEach(pais => {
       console.log(pais.name);
     });
+  }
+
+  testa(evento){
+    // this.seleccionado = evento.detail.value;
+    this.seleccionado.emit(this.buscarIdioma(evento.detail.value));
+    // console.log(this.buscarIdioma(evento.detail.value));
+  }
+
+  buscarIdioma(idioma){
+    return this.paises.find( pais => pais.name === idioma);
   }
 
 }

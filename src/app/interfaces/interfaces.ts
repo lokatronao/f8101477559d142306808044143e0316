@@ -65,14 +65,16 @@ export interface Usuario {
   email?: string;
   nickname?: string;
   password?: string;
-  config?: {
-    pais?: string;
-    idioma?: string;
-  }
+  config?: config;
   __v?: number;
 }
 
-export interface tempImage{
+export interface config {
+  pais?: string;
+  idioma?: string;
+}
+
+export interface tempImage {
   path?: string;
   subido?: boolean;
 }

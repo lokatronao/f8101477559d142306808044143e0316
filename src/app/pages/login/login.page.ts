@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, EmailValidator } from '@angular/forms';
 import { IonSlides, NavController } from '@ionic/angular';
 import { UsuarioService } from '../../services/usuario.service';
 import { UiServiceService } from '../../services/ui-service.service';
 import { Usuario } from 'src/app/interfaces/interfaces';
 import { TranslateService } from '@ngx-translate/core';
+import { Pais } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginPage implements OnInit {
   @ViewChild('slidePrincipal') slides: IonSlides;
 
   validando = false;
+  valido = false;
 
   errorMensajeLogin = '';
   errorMensajeRegistro = '';
@@ -28,6 +30,10 @@ export class LoginPage implements OnInit {
   registerUser: Usuario = {
     email: '',
     password: '',
+    config: {
+      pais: '',
+      idioma: ''
+    },
     nombre: '',
     nickname: '',
     avatar: 'av-1.png'
@@ -39,19 +45,41 @@ export class LoginPage implements OnInit {
     this.slides.lockSwipes(true);
   }
 
-  async login(fLogin: NgForm){
-    if(fLogin.invalid){return;};
+  async login(fLogin: NgForm) {
+    if (fLogin.invalid) { return; }
     this.validando = true;
     await this.UsuarioService.login(this.loginUser.email, this.loginUser.password)
-    .then(()=>{
-      this.validando= false;
-      this.navCtrl.navigateRoot('main/tabs/tab1',{animated:true});
+    .then(() => {
+      this.validando = false;
+      this.navCtrl.navigateRoot('main/tabs/tab1', {animated: true});
+      this.UsuarioService.sacarConfigUsuario();
       this.limpiarMensajesError();
     })
-    .catch((err)=>{
+    .catch((err) => {
       this.validando = false;
       this.errorMensajeLogin = err;
     });
+  }
+
+  validarDatos(){
+    console.log(this.registerUser);
+    if(
+      this.registerUser.email !== '' &&
+      this.registerUser.nombre !== '' &&
+      this.registerUser.nickname !== '' &&
+      this.registerUser.password !== '' &&
+      this.registerUser.avatar !== '' &&
+      this.registerUser.config.pais !== ''
+      ){
+      this.valido = true;
+    }else{
+      this.valido = false;
+    }
+  }
+
+  idiomaSeleccionado(event){
+    this.registerUser.config.pais = event['alpha2'];
+    this.registerUser.config.idioma = event['alpha2'];
   }
 
   async registro(fRegistro: NgForm){
@@ -59,11 +87,11 @@ export class LoginPage implements OnInit {
     if(fRegistro.invalid){return;}
 
     await this.UsuarioService.registro(this.registerUser)
-    .then(()=>{
+    .then(() => {
       this.navCtrl.navigateRoot('main/tabs/tab1',{animated:true});
       this.limpiarMensajesError();
     })
-    .catch((err)=>{
+    .catch((err) => {
       this.errorMensajeRegistro = err;
     });
   }
@@ -72,13 +100,13 @@ export class LoginPage implements OnInit {
     this._translate.use(idioma);
   }
 
-  mostrarRegistro(){
+  mostrarRegistro() {
     this.slides.lockSwipes(false);
     this.slides.slideTo(1);
     this.slides.lockSwipes(true);
   }
 
-  mostrarLogin(){
+  mostrarLogin() {
     this.slides.lockSwipes(false);
     this.slides.slideTo(0);
     this.slides.lockSwipes(true);
