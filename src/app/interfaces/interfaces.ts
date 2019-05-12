@@ -9,7 +9,7 @@ export interface RespuestaSubidaBucket {
   img: Image;
 }
 
-export interface Pais{
+export interface Pais {
   id?: string;
   name?: string;
   aplha2?: string;
@@ -19,21 +19,26 @@ export interface Pais{
 export interface Post {
   bucket?: Bucket;
   _id?: string;
-  mensaje?: string;
+  mensaje?: Mensaje;
   coords?: string;
   usuario?: Usuario;
   created?: string;
   __v?: number;
 }
 
-export interface Bucket{
+export interface Mensaje {
+  texto?: string;
+  idioma?: string;
+}
+
+export interface Bucket {
   imgs?: Image[];
   _id?: string;
   created?: string;
   __v?: number;
 }
 
-export interface Detections{
+export interface Detections {
   adult?: Likelihood;
   spoof?: Likelihood;
   medical?: Likelihood;
@@ -41,7 +46,7 @@ export interface Detections{
   racy?: Likelihood;
 }
 
-export enum Likelihood{
+export enum Likelihood {
   UNKOWN = 'UNKOWN',
   VERY_UNLIKELY = 'VERY_UNLIKELY',
   UNLIKELY = 'UNLIKELY',
@@ -50,7 +55,7 @@ export enum Likelihood{
   VERY_LIKELY = 'VERY_LIKELY'
 }
 
-export interface Image{
+export interface Image {
   detections?: Detections;
   img?: string;
   _id?: string;

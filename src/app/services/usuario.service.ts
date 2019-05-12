@@ -17,7 +17,7 @@ export class UsuarioService {
   private usuario: Usuario = {};
   private idiomas: String[] = ['es', 'en'];
 
-  constructor(private http: HttpClient, private storage: Storage, private navCtrl: NavController, private translateService: TranslateService) { }
+  constructor(private http: HttpClient, private storage: Storage, private navCtrl: NavController, private translateService: TranslateService) { console.log(URL) }
 
   login( email: string, password: string) {
     const data = {email, password};
@@ -38,8 +38,8 @@ export class UsuarioService {
   }
 
   cambiarIdioma(idioma){
-      this.translateService.use(idioma);
-      console.log(this.translateService.getLangs());
+      console.log(idioma);
+      this.translateService.use(idioma); 
   }
 
   sacarConfigUsuario(){
@@ -56,7 +56,6 @@ export class UsuarioService {
           this.cambiarIdioma(this.usuario.config.idioma);
           resolve();
         } else {
-          
           reject();
         }
       });
@@ -154,6 +153,10 @@ export class UsuarioService {
         }
       });
     });
+  }
+
+  getIdioma(){
+    return this.usuario.config.idioma;
   }
 
 

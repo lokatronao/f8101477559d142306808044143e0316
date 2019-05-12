@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Usuario } from 'src/app/interfaces/interfaces';
 import { UsuarioService } from '../../../services/usuario.service';
 import { NgForm } from '@angular/forms';
 import { UiServiceService } from '../../../services/ui-service.service';
 import { PostsService } from 'src/app/services/posts.service';
+import { MenuController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-tab3',
@@ -12,28 +14,34 @@ import { PostsService } from 'src/app/services/posts.service';
 })
 export class Tab3Page implements OnInit {
 
-  usuario:Usuario ={}
+  usuario: Usuario = { };
 
-  constructor(private UsuarioService: UsuarioService, private uiService:UiServiceService, private postService: PostsService){}
+  constructor(private usuarioService: UsuarioService,
+    private uiService: UiServiceService,
+    private postService: PostsService,
+    private menuController: MenuController) { }
 
-  ngOnInit(){
-    this.usuario = this.UsuarioService.getUsuario();
+  ngOnInit() {
+    this.usuario = this.usuarioService.getUsuario();
   }
 
-  async actualizar( fActualizar: NgForm){
-    if(fActualizar.invalid){return;}
+  async actualizar( fActualizar: NgForm) {
+    if (fActualizar.invalid) { return; }
 
-    const actualizado = await this.UsuarioService.actualizarUsuario(this.usuario);
-    console.log(actualizado)
-    if(actualizado){
+    const actualizado = await this.usuarioService.actualizarUsuario(this.usuario);
+    if (actualizado) {
       this.uiService.presentToast('Usuario actualizado correctamente');
-    }else{
+    } else {
       this.uiService.presentToast('Usuario no actualizado');
     }
   }
 
-  logout(){
+  logout() {
     this.postService.paginaPosts = 0;
-    this.UsuarioService.logout();
+    this.usuarioService.logout();
+  }
+
+  openMenu() {
+    this.menuController.open('options');
   }
 }

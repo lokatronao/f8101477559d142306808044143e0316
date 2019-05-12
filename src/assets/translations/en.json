@@ -11,7 +11,14 @@
             "BTN_CREATEUSER": "Create user"
         },
         "HOME": {
-
+            "TAB2": {
+                "TITLE_PAGE": "New Post",
+                "LB_DESCRIPTION": "Description",
+                "LB_ACTUAL_POSITION": "Actual position",
+                "BTN_SHARE": "Share",
+                "BTN_CAMERA": "Camera",
+                "BTN_GALERY": "Galery"
+            }
         }
     }
 }

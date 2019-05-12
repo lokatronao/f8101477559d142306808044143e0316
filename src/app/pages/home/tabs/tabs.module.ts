@@ -22,7 +22,7 @@ import { HttpClient } from '@angular/common/http';
         useFactory: customTranslateLoader,
         deps: [HttpClient]
       }
-    })
+    }),
   ],
   declarations: [TabsPage]
 })

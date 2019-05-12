@@ -29,8 +29,14 @@
     </ion-item>
 
     <ion-item lines="none">
-        <ion-label text-wrap>
-            {{post.mensaje}}
+        <ion-label text-wrap *ngIf="!showTranslation || translation===''">
+            {{post.mensaje.texto}}
+            <a *ngIf="!sameLanguage && !showTranslation" (click)="traducirPost()">Traducir</a>
+            <ion-spinner *ngIf="showTranslation && translation===''" name="dots"></ion-spinner>
+        </ion-label>
+        <ion-label text-wrap *ngIf="showTranslation && translation!==''">
+            {{translation}}
+            <a *ngIf="!sameLanguage" (click)="showOriginal()">Mostrar original</a>
         </ion-label>
     </ion-item>
 </div>

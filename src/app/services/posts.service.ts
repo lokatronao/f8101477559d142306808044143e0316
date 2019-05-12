@@ -18,9 +18,9 @@ export class PostsService {
 
   constructor( private http: HttpClient, private usuarioService: UsuarioService, private fileTransfer: FileTransfer ) { }
 
-  getPosts( pull:boolean = false ){
+  getPosts( pull: boolean = false ) {
 
-    if(pull){
+    if (pull) {
       this.paginaPosts = 0;
     }
 
@@ -29,13 +29,13 @@ export class PostsService {
     return this.http.get<RespuestaPosts>(`${URL}/posts/?pagina=${this.paginaPosts}`);
   }
 
-  crearPost(post){
+  crearPost(post) {
     const headers = new HttpHeaders({
       'x-token': this.usuarioService.token
     });
-    return new Promise(resolve=>{
-      this.http.post(`${URL}/posts`,post,{headers})
-      .subscribe(resp=>{
+    return new Promise(resolve => {
+      this.http.post(`${URL}/posts`, post, {headers})
+      .subscribe(resp => {
         console.log(resp);
         this.nuevoPost.emit(resp['post']);
         resolve(true);
@@ -43,23 +43,23 @@ export class PostsService {
     });
   }
 
-  subirImagen(img:string){
+  subirImagen(img: string) {
     const options: FileUploadOptions = {
       fileKey: 'imagen',
-      headers:{
+      headers: {
         'x-token': this.usuarioService.token
       }
     };
 
     const fileTransfer: FileTransferObject = this.fileTransfer.create();
-    return new Promise((resolve,reject)=>{
-      fileTransfer.upload( img, `${URL}/posts/upload`,options )
-      .then(data =>{
+    return new Promise((resolve, reject) => {
+      fileTransfer.upload( img, `${URL}/posts/upload`, options )
+      .then(data => {
         resolve(data);
-      }).catch(err=>{
+      }).catch(err => {
         console.log(err);
         reject(err);
-      })
+      });
     });
   }
 

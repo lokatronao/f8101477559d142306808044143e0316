@@ -8,6 +8,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { tempImage, Likelihood } from 'src/app/interfaces/interfaces';
 import { BucketService } from 'src/app/services/bucket.service';
 import { RespuestaSubidaBucket } from '../../../interfaces/interfaces';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var window: any;
 
@@ -33,10 +34,12 @@ export class Tab2Page {
     private bucketService: BucketService,
      private navCtrl: NavController,
       private geolocation: Geolocation,
-       private camera: Camera) {
+       private camera: Camera,private translateService: TranslateService) {
        }
 
   async crearPost() {
+
+    this.cargando = true;
 
     const creado = await this.postService.crearPost(this.post);
 
@@ -50,6 +53,8 @@ export class Tab2Page {
     this.tempImages = [];
 
     this.navCtrl.navigateRoot('main/tabs/tab1', {animated: true});
+
+    this.cargando = false;
 
   }
 

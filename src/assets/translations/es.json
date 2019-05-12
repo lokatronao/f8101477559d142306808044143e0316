@@ -11,7 +11,14 @@
             "BTN_CREATEUSER": "Crear usuario"
         },
         "HOME": {
-
+            "TAB2": {
+                "TITLE_PAGE": "Nuevo Post",
+                "LB_DESCRIPTION": "Descripción",
+                "LB_ACTUAL_POSITION": "Posición actual",
+                "BTN_SHARE": "Compartir",
+                "BTN_CAMERA": "Cámara",
+                "BTN_GALERY": "Galería"
+            }
         }
     }
 }

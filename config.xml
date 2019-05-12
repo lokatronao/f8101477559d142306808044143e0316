@@ -102,6 +102,6 @@
         <string>se necesita acceso para guardar las fotos</string>
     </edit-config>
     <plugin name="cordova-plugin-file-transfer" spec="1.7.1" />
-    <engine name="ios" spec="4.5.5" />
     <plugin name="cordova-plugin-globalization" spec="1.11.0" />
+    <engine name="ios" spec="4.5.5" />
 </widget>

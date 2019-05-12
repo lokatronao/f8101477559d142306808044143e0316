@@ -1,12 +1,12 @@
 <ion-header no-border>
     <ion-toolbar>
         <ion-title>
-            {{ 'PAGES.LOGIN.LB_EMAIL' | translate }}
+            {{ 'PAGES.HOME.TAB2.TITLE_PAGE' | translate }}
         </ion-title>
 
         <ion-buttons slot="end">
             <ion-button (click)="crearPost()" [disabled]="post.mensaje.length<1||cargandoGeo||cargando" color="primary">
-                Compartir
+                {{ 'PAGES.HOME.TAB2.BTN_SHARE' | translate }}
             </ion-button>
         </ion-buttons>
 
@@ -18,13 +18,13 @@
     <ion-list>
 
         <ion-item>
-            <ion-label position="floating">Mensaje</ion-label>
+            <ion-label position="floating">{{ 'PAGES.HOME.TAB2.LB_DESCRIPTION' | translate }}</ion-label>
             <ion-textarea [(ngModel)]="post.mensaje"></ion-textarea>
         </ion-item>
 
         <ion-list>
             <ion-item>
-                <ion-label>Posición actual</ion-label>
+                <ion-label>{{ 'PAGES.HOME.TAB2.LB_ACTUAL_POSITION' | translate }}</ion-label>
                 <ion-spinner name="lines-small" *ngIf="cargandoGeo"></ion-spinner>
                 <ion-toggle slot="end" [(ngModel)]="post.posicion" [disabled]="cargandoGeo" (ionChange)="getGeo()"></ion-toggle>
             </ion-item>
@@ -35,13 +35,13 @@
         <ion-col size="6">
             <ion-button expand="full" shape="round" (click)="camara()" [disabled]="cargando">
                 <ion-icon slot="start" name="camera"></ion-icon>
-                Cámara
+                {{ 'PAGES.HOME.TAB2.BTN_CAMERA' | translate }}
             </ion-button>
         </ion-col>
         <ion-col size="6">
             <ion-button expand="full" shape="round" (click)="libreria()" [disabled]="cargando">
                 <ion-icon slot="start" name="images"></ion-icon>
-                Galería
+                {{ 'PAGES.HOME.TAB2.BTN_GALERY' | translate }}
             </ion-button>
         </ion-col>
     </ion-row>

@@ -1,16 +1,38 @@
 <ion-header no-border>
     <ion-toolbar>
         <ion-buttons slot="end">
-            <ion-button (click)="logout()" color="danger">
-                <ion-icon slot="icon-only" name="exit"></ion-icon>
+            <ion-button (click)="openMenu()">
+                <ion-icon slot="icon-only" name="menu"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
+<ion-menu side="end" menuId="options">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>Opciones</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <ion-item>
+                <ion-icon name="contact" slot="start"></ion-icon>
+                Cuenta
+            </ion-item>
+            <ion-item (click)="logout()">
+                <ion-icon slot="start" name="power" color="danger"></ion-icon>
+                <ion-text color="danger">
+                    <p>Cerrar Sesión</p>
+                </ion-text>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-router-outlet animated="true" main></ion-router-outlet>
 
 <ion-content>
-
     <ion-row class="top-20">
 
         <ion-col size="12" text-center>
@@ -60,6 +82,5 @@
         </ion-row>
 
     </form>
-
 
 </ion-content>

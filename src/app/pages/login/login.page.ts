@@ -61,6 +61,10 @@ export class LoginPage implements OnInit {
     });
   }
 
+  traducir(){
+    this._translate.use('en');
+  }
+
   validarDatos(){
     console.log(this.registerUser);
     if(
