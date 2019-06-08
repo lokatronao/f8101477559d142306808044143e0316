@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { Usuario } from '../interfaces/interfaces';
 import { NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { reject } from 'q';
 
 const URL = environment.url;
 
@@ -17,7 +18,10 @@ export class UsuarioService {
   private usuario: Usuario = {};
   private idiomas: String[] = ['es', 'en'];
 
-  constructor(private http: HttpClient, private storage: Storage, private navCtrl: NavController, private translateService: TranslateService) { console.log(URL) }
+  constructor(private http: HttpClient,
+    private storage: Storage,
+    private navCtrl: NavController,
+    private translateService: TranslateService) { console.log(URL); }
 
   login( email: string, password: string) {
     const data = {email, password};
@@ -33,6 +37,8 @@ export class UsuarioService {
           this.storage.clear();
           reject(resp['mensaje']);
         }
+      },err =>{
+        reject(err);
       });
     });
   }
@@ -98,12 +104,14 @@ export class UsuarioService {
   }
 
   async guardarToken(token: string) {
-
     this.token = token;
     await this.storage.set('token', token);
 
     await this.validaToken();
+  }
 
+  async borrarToken() {
+    await this.storage.remove('token');
   }
 
   async cargarToken() {
@@ -132,6 +140,10 @@ export class UsuarioService {
         } else {
           resolve(false);
         }
+      }, err => {
+        resolve(false);
+        this.borrarToken();
+        this.navCtrl.navigateRoot('/login');
       });
     });
   }

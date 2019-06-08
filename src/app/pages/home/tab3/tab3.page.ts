@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { UiServiceService } from '../../../services/ui-service.service';
 import { PostsService } from 'src/app/services/posts.service';
 import { MenuController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class Tab3Page implements OnInit {
   constructor(private usuarioService: UsuarioService,
     private uiService: UiServiceService,
     private postService: PostsService,
-    private menuController: MenuController) { }
+    private menuController: MenuController,
+    private navCtrl: NavController) { }
 
   ngOnInit() {
     this.usuario = this.usuarioService.getUsuario();
@@ -43,5 +45,9 @@ export class Tab3Page implements OnInit {
 
   openMenu() {
     this.menuController.open('options');
+  }
+
+  account() {
+    this.navCtrl.navigateRoot('/main/tabs/tab3/account', {animated: true});
   }
 }

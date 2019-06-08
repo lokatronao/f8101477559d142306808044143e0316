@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,YAAY,CAAC;EACT,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,GAAG;CACf;;AAED,AAAA,yBAAyB,CAAC;EACtB,UAAU,EAAE,mBAAmB;EAC/B,OAAO,EAAE,YAAY;CACxB",
+    "sources": [
+        "avatar-selector.component.scss"
+    ],
+    "names": [],
+    "file": "avatar-selector.component.css"
+}

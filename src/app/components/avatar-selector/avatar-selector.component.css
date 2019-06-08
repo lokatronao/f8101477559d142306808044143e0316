@@ -1,0 +1,11 @@
+.pick-avatar {
+  width: 80px;
+  opacity: 0.3;
+}
+
+.pick-avatar-seleccionado {
+  -webkit-transition: opacity 0.5s linear;
+  transition: opacity 0.5s linear;
+  opacity: 1 !important;
+}
+/*# sourceMappingURL=avatar-selector.component.css.map */

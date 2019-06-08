@@ -31,6 +31,15 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: '../tab3/tab3.module#Tab3PageModule'
+          },
+          {
+            path: 'account',
+            children: [
+              {
+                path: '',
+                loadChildren: '../tab3/menu/account/account.module#AccountPageModule'
+              }
+            ]
           }
         ]
       },

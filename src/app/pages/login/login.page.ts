@@ -39,7 +39,10 @@ export class LoginPage implements OnInit {
     avatar: 'av-1.png'
   };
 
-  constructor(private uiService: UiServiceService , private UsuarioService: UsuarioService, private navCtrl: NavController, private _translate: TranslateService) { }
+  constructor(private uiService: UiServiceService,
+    private UsuarioService: UsuarioService,
+    private navCtrl: NavController,
+    private _translate: TranslateService) { }
 
   ngOnInit() {
     this.slides.lockSwipes(true);
@@ -56,8 +59,13 @@ export class LoginPage implements OnInit {
       this.limpiarMensajesError();
     })
     .catch((err) => {
-      this.validando = false;
-      this.errorMensajeLogin = err;
+      if (err['name'] === 'HttpErrorResponse') {
+        this.validando = false;
+        this.errorMensajeLogin = 'No se ha podido contactar con el servidor, intentalo más tarde';
+      } else {
+        this.validando = false;
+        this.errorMensajeLogin = err;
+      }
     });
   }
 
