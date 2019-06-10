@@ -9,6 +9,8 @@
         </ion-label>
     </ion-item>
 
+    <app-mapa [coords]="post.coords" *ngIf="post.coords && showGPS"></app-mapa>
+
     <ion-slides pager="true" *ngIf="post.bucket.imgs.length > 1">
         <ion-slide *ngFor="let img of post.bucket.imgs" class="image-slide" [style]=" (img.img | imagen: post.bucket._id) | domSanitizer ">
         </ion-slide>
@@ -17,10 +19,15 @@
     <ion-slides *ngIf="post.bucket.imgs.length === 1" [options]="slideSoloOpts">
         <ion-slide class="image-slide" [style]=" (post.bucket.imgs[0].img | imagen: post.bucket._id) | domSanitizer ">
         </ion-slide>
+        <ion-slide *ngIf="post.coords">
+            <ion-card>
+                <app-mapa [coords]="post.coords" *ngIf="post.coords"></app-mapa>
+            </ion-card>
+        </ion-slide>
     </ion-slides>
 
     <!-- mapa -->
-    <app-mapa [coords]="post.coords" *ngIf="post.coords"></app-mapa>
+    <!---->
 
 
     <ion-item lines="none">

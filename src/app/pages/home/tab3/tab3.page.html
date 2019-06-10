@@ -43,44 +43,25 @@
         <ion-row class="top-20">
             <ion-col size="12" text-center>
                 <ion-label>
-                    <h1>Actualizar perfil</h1>
+                    <h1>Tus publicaciones</h1>
                 </ion-label>
             </ion-col>
         </ion-row>
 
+        <ion-row>
+            <!-- Refresher-->
+            <ion-refresher slot="fixed" (ionRefresh)="recargar($event)">
+                <ion-refresher-content></ion-refresher-content>
+            </ion-refresher>
 
-        <app-avatar-selector (avatarSel)="usuario.avatar = $event" [seleccionado]="usuario.avatar"></app-avatar-selector>
+            <!-- Posts -->
+            <app-posts [posts]="posts"></app-posts>
 
-        <form (ngSubmit)="actualizar(fActualizar)" #fActualizar>
-            <ion-row>
-                <ion-col>
-
-                    <ion-list>
-
-                        <ion-item>
-                            <ion-label>Email</ion-label>
-                            <ion-input name="email" type="email" [(ngModel)]="usuario.email" required></ion-input>
-                        </ion-item>
-
-                        <ion-item>
-                            <ion-label>Nombre</ion-label>
-                            <ion-input name="nombre" type="text" [(ngModel)]="usuario.nombre" required></ion-input>
-                        </ion-item>
-
-
-                    </ion-list>
-                </ion-col>
-            </ion-row>
-
-            <ion-row>
-                <ion-col text-center>
-                    <ion-button type="submit" color="tertiary" shape="round">
-                        Actualizar
-                    </ion-button>
-                </ion-col>
-            </ion-row>
-
-        </form>
-
+            <!-- Infinite Scroll-->
+            <ion-infinite-scroll [disabled]="!habilitado" threshold="150px" (ionInfinite)="siguientes($event)">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando">
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </ion-row>
     </ion-content>
 </ion-router-outlet>

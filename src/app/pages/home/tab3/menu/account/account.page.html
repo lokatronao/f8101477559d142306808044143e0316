@@ -1,14 +1,21 @@
 <ion-header>
     <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/main/tabs/tab3"></ion-back-button>
+        </ion-buttons>
         <ion-title>account</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-list>
-        <ion-item>
+        <ion-item (click)="ajustesRegionales()">
             <ion-icon name="contact" slot="start"></ion-icon>
             Ajustes regionales
+        </ion-item>
+        <ion-item (click)="ajustesGenerales()">
+            <ion-icon name="contact" slot="start"></ion-icon>
+            Ajustes generales
         </ion-item>
         <ion-item>
             <ion-icon slot="start" name="power" color="danger"></ion-icon>

@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/main/tabs/tab3/account"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Ajustes Regionales</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-row class="top-20">
+
+        <ion-col size="12" text-center>
+            <img src="assets/avatars/{{usuario.avatar}}" class="img-avatar">
+        </ion-col>
+
+    </ion-row>
+
+
+    <app-selector-pais (seleccionado)="idiomaSeleccionado($event)"></app-selector-pais>
+
+    <form (ngSubmit)="actualizar(fActualizar)" #fActualizar>
+        <ion-row>
+            <ion-col text-center>
+                <ion-button type="submit" color="tertiary" shape="round">
+                    Actualizar
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+    </form>
+
+</ion-content>

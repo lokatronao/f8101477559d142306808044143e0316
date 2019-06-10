@@ -12,6 +12,8 @@ export class PostComponent implements OnInit {
 
   @Input() post: Post = {};
 
+  showGPS = false;
+
   sameLanguage = true;
 
   translation = '';

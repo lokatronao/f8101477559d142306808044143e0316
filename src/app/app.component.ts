@@ -20,7 +20,7 @@ export class AppComponent {
   ) {
     this.initializeApp();
     let userLang = navigator.language.split('-')[0];
-    userLang = /(en|es)/gi.test(userLang) ? userLang : 'es';
+    userLang = /(en|es)/gi.test(userLang) ? userLang : 'en';
     this._translate.use(userLang);
   }
 

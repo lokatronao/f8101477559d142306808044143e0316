@@ -38,6 +38,20 @@ const routes: Routes = [
               {
                 path: '',
                 loadChildren: '../tab3/menu/account/account.module#AccountPageModule'
+              },{
+                path: 'ajgenerales',
+                children: [
+                  {
+                    path: '',
+                    loadChildren: '../tab3/menu/account/agenerales/agenerales.module#AgeneralesPageModule'
+                  }]
+              },{
+                path: 'ajregionales',
+                children: [
+                  {
+                    path: '',
+                    loadChildren: '../tab3/menu/account/aregionales/aregionales.module#AregionalesPageModule'
+                  }]
               }
             ]
           }

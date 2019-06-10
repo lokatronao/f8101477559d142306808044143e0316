@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-account',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountPage implements OnInit {
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
+  }
+
+  ajustesGenerales() {
+    this.navCtrl.navigateRoot('/main/tabs/tab3/account/ajgenerales', {animated: true});
+  }
+
+  ajustesRegionales() {
+    this.navCtrl.navigateRoot('/main/tabs/tab3/account/ajregionales', {animated: true});
   }
 
 }

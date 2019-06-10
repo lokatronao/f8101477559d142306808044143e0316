@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { Usuario } from 'src/app/interfaces/interfaces';
+import { Usuario, Post } from 'src/app/interfaces/interfaces';
 import { UsuarioService } from '../../../services/usuario.service';
 import { NgForm } from '@angular/forms';
 import { UiServiceService } from '../../../services/ui-service.service';
@@ -15,6 +15,10 @@ import { NavController } from '@ionic/angular';
 })
 export class Tab3Page implements OnInit {
 
+  posts: Post[] = [];
+
+  habilitado: boolean = true;
+
   usuario: Usuario = { };
 
   constructor(private usuarioService: UsuarioService,
@@ -25,17 +29,38 @@ export class Tab3Page implements OnInit {
 
   ngOnInit() {
     this.usuario = this.usuarioService.getUsuario();
+    this.siguientes();
+    this.postService.nuevoPost
+    .subscribe(post => {
+      this.posts.unshift(post);
+    });
   }
 
-  async actualizar( fActualizar: NgForm) {
-    if (fActualizar.invalid) { return; }
+  recargar( event ) {
 
-    const actualizado = await this.usuarioService.actualizarUsuario(this.usuario);
-    if (actualizado) {
-      this.uiService.presentToast('Usuario actualizado correctamente');
-    } else {
-      this.uiService.presentToast('Usuario no actualizado');
-    }
+    this.siguientes(event, true);
+    this.posts = [];
+    this.habilitado = true;
+    console.log(this.posts);
+
+  }
+
+  siguientes( event?, pull: boolean = false ){
+
+    this.postService.getPostsPropios(pull)
+    .subscribe(resp => {
+      console.log(resp);
+      this.posts.push(...resp.posts);
+
+      if (event) {
+        event.target.complete();
+
+        if (resp.posts.length === 0) {
+          this.habilitado = false;
+        }
+      }
+
+    });
   }
 
   logout() {

@@ -14,6 +14,8 @@ export class PostsService {
 
   paginaPosts = 0;
 
+  paginaPropiosPost = 0;
+
   nuevoPost = new EventEmitter<Post>();
 
   constructor( private http: HttpClient, private usuarioService: UsuarioService, private fileTransfer: FileTransfer ) { }
@@ -27,6 +29,17 @@ export class PostsService {
     this.paginaPosts++;
 
     return this.http.get<RespuestaPosts>(`${URL}/posts/?pagina=${this.paginaPosts}`);
+  }
+
+  getPostsPropios( pull: boolean = false ) {
+
+    if (pull) {
+      this.paginaPropiosPost = 0;
+    }
+
+    this.paginaPropiosPost++;
+    const headers = new HttpHeaders({'x-token':this.usuarioService.token});
+    return this.http.get<RespuestaPosts>(`${URL}/posts/my/?pagina=${this.paginaPropiosPost}`,{headers});
   }
 
   crearPost(post) {
